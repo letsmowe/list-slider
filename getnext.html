@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<meta charset="UTF-8">
+<title>getNext</title>
+<meta name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+<script src="dist/js/villa.min.js"></script>
+<link rel="stylesheet" href="dist/css/villa.min.css"/>
+<!--[if lt IE 9]>
+<link rel="stylesheet" type="text/css" href="dist/css/material-colors.css"/>
+<link rel="stylesheet" type="text/css" href="dist/css/villa-cross.min.css"/>
+<script src="dist/js/html5shiv.js"></script>
+<script src="dist/js/html5shiv-printshiv.js"></script>
+<script src="dist/js/classList.min.js"></script>
+<![endif]-->
+
+<style>
+
+	.is-active {
+		background-color: #ff6d00;
+	}
+
+	.is-previous {
+		background-color: #616161;
+	}
+
+	.is-next {
+		background-color: #cecece;
+	}
+
+</style>
+
+<body>
+
+<ul class="List">
+	<li class="ListItem">1</li>
+	<li class="ListItem">2</li>
+	<li class="ListItem is-active">3</li>
+	<li class="ListItem">4</li>
+	<li class="ListItem">5</li>
+	<li class="ListItem">6</li>
+	<li class="ListItem">7</li>
+	<li class="ListItem">8</li>
+</ul>
+
+<script>
+
+	var fields = document.querySelectorAll('.ListItem');
+
+	function reset () {
+
+		for (var i = fields.length; i--;) {
+			fields[i].classList.remove('is-active');
+			fields[i].classList.remove('is-previous');
+			fields[i].classList.remove('is-next');
+		}
+
+	}
+
+	function next () {
+
+		for(var i = fields.length; i--;)
+			if (fields[i].classList.contains('is-active'))
+				return ((i + 1) == fields.length) ? fields[0] : fields[i + 1];
+
+		return fields.length ? fields[0] : false;
+
+	}
+
+	function prev () {
+
+		for(var i = fields.length; i--;)
+			if (fields[i].classList.contains('is-active'))
+				return i ? fields[i - 1] : fields[fields.length - 1];
+
+		return fields.length ? fields[0] : false;
+
+	}
+
+	setInterval(function () {
+
+		var active = next();
+
+		reset();
+
+		active.classList.add('is-active');
+
+		var n = next();
+		var p = prev();
+
+		n.classList.add('is-next');
+		p.classList.add('is-previous');
+
+	}, 1000);
+
+</script>
+
+</body>
+
+</html>
